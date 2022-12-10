@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "860029187655",
+    "firebase_url": "https://rhino-crashlytics.firebaseio.com",
+    "project_id": "rhino-crashlytics",
+    "storage_bucket": "rhino-crashlytics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860029187655:android:21bef227115f5cc822a362",
+        "android_client_info": {
+          "package_name": "com.Lion.Rhino.Threa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860029187655-kkhtt5s21kqtfaflc41ncrf1jo5ljd8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKViceM5EkdYzs7BgMnIMpe45ZWSy-FNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860029187655-kkhtt5s21kqtfaflc41ncrf1jo5ljd8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

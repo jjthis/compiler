@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--CheckBoxPreference
+        android:defaultValue="false"
+        android:key="useUserName"
+        android:summaryOff="앱 시작시 자동으로 불러오지 않습니다"
+        android:summaryOn="앱 시작시 자동으로 불러옵니다"
+        android:title="자동 불러오기" />
+
+    <EditTextPreference
+        android:defaultValue="Mir"
+        android:dependency="useUserName"
+        android:key="userName"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="사용자 이름 설정" />
+
+    <ListPreference
+        android:defaultValue="0"
+        android:dependency="useUserName"
+        android:entries="@array/userNameOpen"
+        android:entryValues="@array/userNameOpen_values"
+        android:key="userNameOpen"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="이름 공개 범위" /-->
+
+    <PreferenceCategory android:title="불러오기">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="autoUpdate"
+            android:summaryOff="앱 시작시 자동으로 불러오지 않습니다"
+            android:summaryOn="앱 시작시 자동으로 불러옵니다"
+            android:switchTextOff="OFF"
+            android:switchTextOn="ON"
+            android:title="자동 불러오기" />
+        <Preference
+            android:key="load"
+            android:summary="저장소에서 텍스트를 불러옵니다"
+            android:title="불러오기"></Preference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="기타">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="clearButton"
+            android:summaryOff="지우기 버튼을 사용하지 않습니다"
+            android:summaryOn="지우기 버튼을 사용합니다"
+            android:switchTextOff="OFF"
+            android:switchTextOn="ON"
+            android:title="지우기 버튼 사용하기" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/program"
+            android:entryValues="@array/program_val"
+            android:key="program"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="언어 설정" />
+        <EditTextPreference
+            android:gravity="top"
+            android:minLines="6"
+            android:key="input"
+            android:selectAllOnFocus="true"
+            android:title="인풋 텍스트 설정" />
+        <ListPreference
+            android:defaultValue="18"
+            android:entries="@array/userNameOpen"
+            android:entryValues="@array/userNameOpen"
+            android:key="userNameOpen"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="결과창 폰트 설정 (기본 18font)" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/version"
+            android:entryValues="@array/version"
+            android:key="version"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="언어 버전 인덱스" />
+
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="도움말">
+        <Preference
+            android:key="help"
+            android:summary="모든 언어의 예제를 봅니다"
+            android:title="언어 도움말" />
+        <Preference
+            android:key="exam"
+            android:summary="그 언어의 예제를 불러옵니다."
+            android:title="예제 불러오기"></Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>
