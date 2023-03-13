@@ -480,54 +480,99 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    String clientId = "af4dc45f0e0a02835e0de932618eb2b9";
+    String clientSecret = "81829474750e058fe1544b14b237c3facb92580b4f2cfff5bf345c0fb5c0fd3c";
     public String langs(String strs) {
         try {
-            URL url = new URL("https://www.jdoodle.com/engine/execute");
-            URLConnection con = url.openConnection();
-            StringBuilder str2 = new StringBuilder();
-            if (con != null) {
-                ((HttpURLConnection) con).setRequestMethod("POST");
-                con.setConnectTimeout(5000);
-                con.setUseCaches(false);
-                con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-//                con.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
-                con.setRequestProperty("x-requested-with", "XMLHttpRequest");
-                con.setRequestProperty("referer", "https://www.jdoodle.com/online-compiler-c++17/");
-                con.setRequestProperty("kurukku-kuri","e593934a-54c5-41af-a4ec-ac4efcd8f748");
-                con.setRequestProperty("referer", "https://www.jdoodle.com" + Arrays.languages[comp - 2][0]);
-                con.setRequestProperty("Cookie", "SESSION=8b6872b0-10fe-49a7-8850-52dd8fcf90ca");
-                /////{
-                //  "script": "var x = 10;\nvar y = 25;\nvar z = x + y;\n\nprint('Sum of ',x,' and ',y,' is ',z);",
-                //  "args": null,
-                //  "stdin": null,
-                //  "language": "rhino",
-                //  "versionIndex": 2,
-                //  "libs": [],
-                //  "projectKey": 1001,
-                //  "hasInputFiles": false
-                //}
-                String inp = "{\"script\":\"" + strs.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"").replace("\t","\\t")
-                        + "\",\"args\":null,\"stdin\":\""+inputText.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")+"\",\"language\":\"" + Arrays.languages[comp - 2][1].toLowerCase() +
-                        "\",\"libs\":[],\"versionIndex\":" + Integer.parseInt(mPref.getString("version", "0")) +
-                        ",\"projectKey\": 1001,\"hasInputFiles\": false };";
-                Log.i("dsd", "langs: " + inp);
-                OutputStream os = con.getOutputStream();
-                os.write(inp.getBytes());
-                os.flush();
-                InputStreamReader isr = new InputStreamReader(con.getInputStream());
-                BufferedReader br = new BufferedReader(isr);
-                str2 = new StringBuilder(br.readLine());
-                String line = "";
-                while ((line = br.readLine()) != null) {
-                    str2.append("\n").append(line);
-                }
-                isr.close();
-                br.close();
-                ((HttpURLConnection) con).disconnect();
-                JSONObject object = new JSONObject(String.valueOf(str2));
-                return object.getString("output");
+            URL url = new URL("https://api.jdoodle.com/v1/execute");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+
+//            String inp = "{\"script\":\"" + strs.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"").replace("\t","\\t")
+//                        + "\",\"args\":null,\"stdin\":\""+inputText.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")+"\",\"language\":\"" + Arrays.languages[comp - 2][1].toLowerCase() +
+//                        "\",\"libs\":[],\"versionIndex\":" + Integer.parseInt(mPref.getString("version", "0")) +
+//                        ",\"projectKey\": 1001,\"hasInputFiles\": false };";
+
+            String input = "{\"clientId\": \"" + clientId + "\",\"clientSecret\":\"" + clientSecret + "\",\"script\":\""
+                    +  strs.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"").replace("\t","\\t") +
+                    "\",\"language\":\"" + Arrays.languages[comp - 2][1].toLowerCase() +
+                    "\",\"versionIndex\":\"" + Integer.parseInt(mPref.getString("version", "0")) + "\"} ";
+
+            System.out.println(input);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(input.getBytes());
+            outputStream.flush();
+
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Please check your inputs : HTTP error code : "+ connection.getResponseCode());
             }
-            return "null";
+
+            BufferedReader bufferedReader;
+            bufferedReader = new BufferedReader(new InputStreamReader(
+                    (connection.getInputStream())));
+
+            String output;
+            StringBuilder ret = new StringBuilder();
+//            System.out.println("Output from JDoodle .... \n");
+            while ((output = bufferedReader.readLine()) != null) {
+                System.out.println(output);
+                ret.append(output);
+            }
+
+            connection.disconnect();
+
+            JSONObject object = new JSONObject(String.valueOf(ret));
+            return object.getString("output");
+//
+//            URL url = new URL("https://www.jdoodle.com/engine/execute");
+//            URLConnection con = url.openConnection();
+//            StringBuilder str2 = new StringBuilder();
+//            if (con != null) {
+//                ((HttpURLConnection) con).setRequestMethod("POST");
+//                con.setConnectTimeout(5000);
+//                con.setUseCaches(false);
+//                con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+////                con.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
+//                con.setRequestProperty("x-requested-with", "XMLHttpRequest");
+//                con.setRequestProperty("referer", "https://www.jdoodle.com/online-compiler-c++17/");
+//                con.setRequestProperty("kurukku-kuri","e593934a-54c5-41af-a4ec-ac4efcd8f748");
+//                con.setRequestProperty("referer", "https://www.jdoodle.com" + Arrays.languages[comp - 2][0]);
+//                con.setRequestProperty("Cookie", "SESSION=8b6872b0-10fe-49a7-8850-52dd8fcf90ca");
+//                /////{
+//                //  "script": "var x = 10;\nvar y = 25;\nvar z = x + y;\n\nprint('Sum of ',x,' and ',y,' is ',z);",
+//                //  "args": null,
+//                //  "stdin": null,
+//                //  "language": "rhino",
+//                //  "versionIndex": 2,
+//                //  "libs": [],
+//                //  "projectKey": 1001,
+//                //  "hasInputFiles": false
+//                //}
+//                String inp = "{\"script\":\"" + strs.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"").replace("\t","\\t")
+//                        + "\",\"args\":null,\"stdin\":\""+inputText.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")+"\",\"language\":\"" + Arrays.languages[comp - 2][1].toLowerCase() +
+//                        "\",\"libs\":[],\"versionIndex\":" + Integer.parseInt(mPref.getString("version", "0")) +
+//                        ",\"projectKey\": 1001,\"hasInputFiles\": false };";
+//                Log.i("dsd", "langs: " + inp);
+//                OutputStream os = con.getOutputStream();
+//                os.write(inp.getBytes());
+//                os.flush();
+//                InputStreamReader isr = new InputStreamReader(con.getInputStream());
+//                BufferedReader br = new BufferedReader(isr);
+//                str2 = new StringBuilder(br.readLine());
+//                String line = "";
+//                while ((line = br.readLine()) != null) {
+//                    str2.append("\n").append(line);
+//                }
+//                isr.close();
+//                br.close();
+//                ((HttpURLConnection) con).disconnect();
+//                JSONObject object = new JSONObject(String.valueOf(str2));
+//            return object.getString("output");
+//            }
+//            return "null";
         } catch (MalformedURLException e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
@@ -538,7 +583,14 @@ public class MainActivity extends AppCompatActivity {
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
             return sw.toString();
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            return sw.toString();
+        }
+        catch (RuntimeException e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
