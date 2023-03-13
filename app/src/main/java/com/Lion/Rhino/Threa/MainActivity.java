@@ -363,6 +363,24 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, Debug.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.action_run:
+                // User chose the "Settings" item, show the app settings UI...
+                mTimer.sendEmptyMessage(0);
+                text.setText("");
+                edit.requestFocus();
+
+                //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+                if (edit.getText().toString().length() > 0)
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SharedPreferences.Editor editor = share.edit();
+                            editor.putString("Text", edit.getText().toString()); // key, value를 이용하여 저장하는 형태
+                            editor.apply();
+                        }
+                    }).start();
+                return true;
         }
         return false;
     }
