@@ -516,6 +516,7 @@ public class MainActivity extends AppCompatActivity {
             String input = "{\"clientId\": \"" + clientId + "\",\"clientSecret\":\"" + clientSecret + "\",\"script\":\""
                     +  strs.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"").replace("\t","\\t") +
                     "\",\"language\":\"" + Arrays.languages[comp - 2][1].toLowerCase() +
+                    "\",\"stdin\":\""+inputText.replace("\\", "\\\\").replace("\n", "\\n").replace("\"", "\\\"")+
                     "\",\"versionIndex\":\"" + Integer.parseInt(mPref.getString("version", "0")) + "\"} ";
 
             System.out.println(input);
