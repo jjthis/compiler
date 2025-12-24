@@ -29,7 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Object;
 import com.faendir.rhino_android.RhinoAndroidHelper;

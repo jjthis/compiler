@@ -737,12 +737,14 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".Debug" />
+        <activity android:name=".Debug"
+            android:exported="false"/>
         <activity
             android:label="@string/app_name"
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -750,7 +752,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SettingsActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS" />
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -762,7 +765,8 @@
         <service
             android:name=".Tile"
             android:label="Rhino"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -781,7 +785,8 @@
         <activity
             android:name=".Notifications"
             android:label="알림"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars">
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars"
+            android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -791,10 +796,12 @@
         <activity
             android:name=".copy"
             android:label="copy"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars"/>
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars"
+            android:exported="false"/>
         <activity android:name=".rhinoReplace"
             android:label="rhino"
-            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars">
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBars"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
                 <action android:name="android.intent.action.SEND" />

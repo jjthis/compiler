@@ -233,9 +233,11 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         else if (preference.getKey().equals("help"))
             viewDialog("");
         else if(preference.getKey().equals("exam")){
-            if(mprogram.findIndexOfValue(mprogram.getValue())-2>=0)
+            if(mprogram.findIndexOfValue(mprogram.getValue())-2>=0){
+                Log.d("TAGTAGSS", "디버그 로그" + Integer.toString(mprogram.findIndexOfValue(mprogram.getValue())-2));
                 MainActivity.edit.setText(Sample.code[mprogram.findIndexOfValue(mprogram.getValue())-2]);
-            Toast.makeText(getApplicationContext(), "붙여넣었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "붙여넣었습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
